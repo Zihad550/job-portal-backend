@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcryptjs = require('bcryptjs')
 
 const {ObjectId} = mongoose.Schema.Types;
 
@@ -50,8 +51,29 @@ const userSchema = mongoose.Schema({
         type: String,
         enum: ['hr', 'admin'],
         default: 'hr'
+    },
+    status: {
+        type: String, 
+        enum: ['active', 'inactive'],
+        default: 'active'
     }
+}, {
+    timestamps: true,
 });
+
+userSchema.pre('save', function(next){
+    const password = this.password;
+    const hashedPassword = bcryptjs.hashSync(password);
+    this.password = hashedPassword;
+    this.confirmPassword = undefined;
+    next();
+});
+
+userSchema.methods.comparePassword = function(password, hash){
+    return bcryptjs.compareSync(password, hash)
+};
+
+
 
 const User = mongoose.model('HiringManager', userSchema);
 module.exports = User;
