@@ -25,10 +25,9 @@ const jobSchema = mongoose.Schema({
         min: {type: Number, required: true, min: 0},
         max: {type: Number, required: true, min: 0},
     },
-    position: String,
     posted: {
         type: Date,
-        required: true,
+        default: new Date()
     },
     deadline: {
         type: Date,
@@ -45,8 +44,10 @@ const jobSchema = mongoose.Schema({
         email: {
             type: String, required: true, trim: true, lowercase: true, validate: [validator.isEmail, 'Please provide an valid email']
         },
-        type: ObjectId,
+        id: {
+            type: ObjectId,
         ref: 'User'
+        }
     }
 });
 

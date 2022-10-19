@@ -5,12 +5,12 @@ exports.createJobService = async(jobInfo) => {
     return job;
 };
 
-exports.getJobsByHRIdService = async(id) => {
-    const jobs = await Job.find({createdBy: id});
+exports.getJobsByManagerIdService = async(id) => {
+    const jobs = await Job.find({'createdBy.id': id});
     return jobs;
 };
 
-exports.getJobByIdService = async(id) => {
+exports.getJobById = async(id) => {
     const job = await Job.findById(id);
     return job;
 };

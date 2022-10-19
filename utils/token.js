@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 exports.generateToken = (userInfo) => {
     const payload = {
-        email: userInfo.email,
+        id: userInfo._id,
         role: userInfo.role,
     };
 
