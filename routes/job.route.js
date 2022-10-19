@@ -5,6 +5,14 @@ const jobController = require('../controllers/job.controller');
 
 const router = express.Router();
 
-router.post('/', verifyToken, authorization('hr'), jobController.createJob);
+router.route('/')
+    .post( verifyToken, authorization('hr'), jobController.createJob)
+    .get( jobController.getJobsForCandidate)
 
+    
+    router.route(':id')
+    .put( verifyToken, authorization('hr'), jobController.updateJobById)
+    .get(jobController.getJobDetailWithHRInfo)
+    
+    router.post('/:id/apply', jobController.applyJob);
 module.exports = router;

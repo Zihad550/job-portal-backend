@@ -1,5 +1,6 @@
-const {createJobService, getJobsByManagerIdService, getJobById, updateJobByIdService} = require('../services/job.service');
+const {createJobService, getJobsByManagerIdService, getJobById, updateJobByIdService, getJobsService, getJobByIdWithHRDetail} = require('../services/job.service');
 const { findUserByIdService } = require('../services/user.service');
+
 
 exports.createJob = async(req, res) => {
     try{
@@ -105,3 +106,80 @@ exports.updateJobById = async(req, res) => {
         })
     }
 }
+
+
+
+exports.getJobsForCandidate =  async(req, res, next) => {
+    try{
+      const {query} = req;
+      let filters = {...query};
+      const queries = {};
+
+      if(query.sort){
+        queries.sortBy = query.sort.split(',').join(' ');
+      }
+      if(query.fields){
+        queries.fields = query.fields.split(',').join(' ');
+        console.log(queries.fields)
+      }
+
+      const excludeFields = ['sort'];
+      excludeFields.forEach(field => delete filters[field]);
+
+      const jobs = await getJobsService(filters, queries);
+      
+      res.status(200).json({
+        status: 'Success',
+        message: 'Got data',
+        data: jobs
+      })
+    }
+    catch(error){
+      res.status(400).json({
+        status: "Fail",
+        message: 'Can not get the data',
+        error: error.message
+      })
+    }
+  }
+
+
+exports.getJobDetailWithHRInfo =  async(req, res, next) => {
+    try{
+      const {id} = req.params;
+      const job = await getJobByIdWithHRDetail(id);
+      
+      res.status(200).json({
+        status: 'Success',
+        message: 'Got data',
+        data: job
+      })
+    }
+    catch(error){
+      res.status(400).json({
+        status: "Fail",
+        message: 'Can not get the data',
+        error: error.message
+      })
+    }
+  }
+
+exports.applyJob =  async(req, res, next) => {
+    try{
+      const {id} = req.params;
+      const job = await getJobByIdWithHRDetail(id);
+      
+      res.status(200).json({
+        status: 'Success',
+        message: 'Got data',
+        data: job
+      })
+    }
+    catch(error){
+      res.status(400).json({
+        status: "Fail",
+        message: 'Can not get the data',
+        error: error.message
+      })
+    }
+  }
