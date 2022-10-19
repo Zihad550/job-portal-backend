@@ -33,10 +33,10 @@ const jobSchema = mongoose.Schema({
         type: Date,
         required: true,
     },
-    candidates: {
+    candidates: [{
         type: ObjectId,
         ref: 'Candidate'
-    },
+    }],
     createdBy: {
         name: {
             type: String, required: true, trim: true, lowercase: true,
