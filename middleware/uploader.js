@@ -14,9 +14,7 @@ const uploader = multer({
     storage,
     fileFilter: (req, file, cb) => {
         const supportedImage = /pdf/;
-        console.log(supportedImage)
         const extension = path.extname(file.originalname);
-        console.log(extension)
         if(supportedImage.test(extension)){
             cb(null, true)
         }else{

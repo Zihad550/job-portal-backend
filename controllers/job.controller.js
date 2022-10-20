@@ -120,7 +120,6 @@ exports.getJobsForCandidate =  async(req, res, next) => {
       }
       if(query.fields){
         queries.fields = query.fields.split(',').join(' ');
-        console.log(queries.fields)
       }
 
       const excludeFields = ['sort'];
@@ -166,7 +165,6 @@ exports.getJobDetailWithHRInfo =  async(req, res, next) => {
 
 exports.applyJob =  async(req, res, next) => {
     try{
-      console.log(req.file)
       const {id} = req.params;
       const job = await applyJobService(id, {...req.body, resume: `https://powerful-sands-86286.herokuapp.com/${req.file.path}`});
       

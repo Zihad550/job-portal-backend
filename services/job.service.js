@@ -38,20 +38,17 @@ exports.getJobsService = async (filters, queries) => {
 
 exports.findCandidateByEmail = async(email) => {
     const candidate = await Candidate.findOne({email});
-    console.log(candidate)
     return candidate;
 }
 
 
 exports.applyJobService = async(id, candidateInfo) => {
-    console.log(candidateInfo)
     const job = await Job.findById(id);
     if(!job) return;
     const foundCandidate = await this.findCandidateByEmail(candidateInfo.email);
 
     if(foundCandidate){
-        if(foundCandidate.jobApplied.some(jobApp => String(jobApp.id) === String(id)))return;
-        console.log('should not be here')
+        if(foundCandidate.jobApplied.some(jobApp => String(jobApp.id) === String(id)))return 'already applied';
         job.candidates.push(foundCandidate._id);
         foundCandidate.jobApplied.push({title: job.title, id: job._id})
     job.save();
