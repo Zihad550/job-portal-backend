@@ -26,6 +26,10 @@ const candidateSchema = mongoose.Schema({
             country: String,
             city: String,
         },
+        resume: {
+            type: String,
+            required: true,  
+        },
     jobApplied: [{
         title: String,
         id: {
