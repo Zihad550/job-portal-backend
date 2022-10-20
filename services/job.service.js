@@ -49,7 +49,7 @@ exports.applyJobService = async(id, candidateInfo) => {
     const job = await Job.findById(id);
     if(!job) {
        fs.unlinkSync(`public/resumes/${candidateInfo.resume.name}`)
-        return;
+        return 'job not found';
     } ;
     const foundCandidate = await this.findCandidateByEmail(candidateInfo.email);
 
