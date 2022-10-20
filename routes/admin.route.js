@@ -6,9 +6,9 @@ const verifyToken = require('../middleware/verifyToken');
 
 const router = express.Router();
 
-router.get('/candidates', verifyToken, authorization('admin'), adminController.getAllCandidate);
-router.get('/candidate/:id', verifyToken, authorization('admin'), adminController.getCandidateById);
-router.get('/hrs', verifyToken, authorization('admin'), adminController.getAllHrs);
-router.patch('/:id/make-admin', verifyToken, authorization('admin'), adminController.makeAdmin);
+router.get('/candidates', verifyToken, authorization('hr'), adminController.getAllCandidate);
+router.get('/candidate/:id', verifyToken, authorization('hr'), adminController.getCandidateById);
+router.get('/hrs', verifyToken, authorization('hr'), adminController.getAllHrs);
+router.patch('/:id/make-admin', verifyToken, authorization('hr'), adminController.makeAdmin);
 
 module.exports = router;

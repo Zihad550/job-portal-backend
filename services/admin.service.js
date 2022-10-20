@@ -18,5 +18,5 @@ exports.getAllHRsService = async() => {
 
  
 exports.makeAdminService = async(id) => {
-    const newAdmin = await User.findByIdAndUpdate(id, {role: 'admin'})
+    const newAdmin = await User.findByIdAndUpdate(id, {role: 'hr'})
 }

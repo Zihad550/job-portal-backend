@@ -1,10 +1,12 @@
 const Job = require('../models/job.model');
 const Candidate = require('../models/candidate.model');
 const fs = require('fs');
-
+const { findUserByIdService } = require('./user.service');
+const User = require('../models/user.model');
 
 exports.createJobService = async(jobInfo) => {
     const job = await Job.create(jobInfo);
+    await User.updateOne({_id: jobInfo.createdBy.id}, {$push: {jobPosted: job._id}})
     return job;
 };
 
