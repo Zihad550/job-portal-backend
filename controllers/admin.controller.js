@@ -81,17 +81,13 @@ exports.makeAdmin = async(req, res) => {
             message: 'Please try again later.'
         })
 
-        const hr = await makeAdminService(req.params.id);
+        const result = await makeAdminService(req.params.id);
 
-        if(!hr)return res.status(401).json({
-            status: 'Fail',
-            message: 'No hrs found.'
-        })
-
+        
         res.status(200).json({
             status: 'Success',
             message: 'Successfully updated the hr to admin',
-            data: hr
+            data: result
         })
     }catch(error){
         res.status(500).json({
