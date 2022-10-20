@@ -47,6 +47,10 @@ exports.findCandidateByEmail = async(email) => {
 
 exports.applyJobService = async(id, candidateInfo) => {
     const job = await Job.findById(id);
+
+    const today = new Date().getTime();
+    const deadline = new Date(job.deadline).getTime();
+    if(today >= deadline ) return 'Application closed'
     if(!job) {
        fs.unlinkSync(`public/resumes/${candidateInfo.resume.name}`)
         return 'job not found';
