@@ -75,5 +75,5 @@ userSchema.methods.comparePassword = function(password, hash){
 
 
 
-const User = mongoose.model('HiringManager', userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

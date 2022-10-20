@@ -1,4 +1,4 @@
-const {createJobService, getJobsByManagerIdService, getJobById, updateJobByIdService, getJobsService, getJobByIdWithHRDetail} = require('../services/job.service');
+const {createJobService, getJobsByManagerIdService, getJobById, updateJobByIdService, getJobsService, getJobByIdWithHRDetail, applyJobService} = require('../services/job.service');
 const { findUserByIdService } = require('../services/user.service');
 
 
@@ -167,7 +167,7 @@ exports.getJobDetailWithHRInfo =  async(req, res, next) => {
 exports.applyJob =  async(req, res, next) => {
     try{
       const {id} = req.params;
-      const job = await getJobByIdWithHRDetail(id);
+      const job = await applyJobService(id, req.body);
       
       res.status(200).json({
         status: 'Success',

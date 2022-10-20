@@ -3,7 +3,6 @@ const validator = require('validator');
 const {ObjectId} = mongoose.Schema.Types;
 
 const candidateSchema = mongoose.Schema({
-    info: {
         name: {
             type: String,
             required: [true, 'Please provide a name for candidate'],
@@ -20,15 +19,13 @@ const candidateSchema = mongoose.Schema({
         },
         phone: {
             type: String,
-            require: [true, 'Please provide a phone number for candidate'],
             trim: true,
             validate: [validator.isMobilePhone, 'Please provide a valid contact number']
         },
         location: {
             country: String,
             city: String,
-        }
-    },
+        },
     jobApplied: [{
         title: String,
         id: {
