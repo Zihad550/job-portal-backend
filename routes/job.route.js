@@ -14,5 +14,5 @@ router.route('/')
     .put( verifyToken, authorization('hr'), jobController.updateJobById)
     .get(jobController.getJobDetailWithHRInfo)
     
-    router.post('/:id/apply', jobController.applyJob);
+    router.patch('/:id/apply', jobController.applyJob);
 module.exports = router;
