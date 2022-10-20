@@ -7,6 +7,7 @@ const app = express();
 const userRoute = require('./routes/user.route');
 const jobRoute = require('./routes/job.route');
 const managerRoute = require('./routes/manager.route');
+const adminRoute = require('./routes/admin.route');
 
 // middleware
 app.use(express.json());
@@ -21,5 +22,6 @@ app.get('/', (req, res) => {
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/jobs', jobRoute);
 app.use('/api/v1/manager', managerRoute);
+app.use('/api/v1/admin', adminRoute);
 
 module.exports = app;
