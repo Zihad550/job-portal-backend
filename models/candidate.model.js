@@ -27,8 +27,8 @@ const candidateSchema = mongoose.Schema({
             city: String,
         },
         resume: {
-            type: String,
-            required: true,  
+            url: String,
+            name:  String,
         },
     jobApplied: [{
         title: String,

@@ -1,5 +1,6 @@
 const Job = require('../models/job.model');
 const Candidate = require('../models/candidate.model');
+const fs = require('fs');
 
 
 exports.createJobService = async(jobInfo) => {
@@ -44,16 +45,22 @@ exports.findCandidateByEmail = async(email) => {
 
 exports.applyJobService = async(id, candidateInfo) => {
     const job = await Job.findById(id);
-    if(!job) return;
+    if(!job) {
+       fs.unlinkSync(`public/resumes/${candidateInfo.resume.name}`)
+        return;
+    } ;
     const foundCandidate = await this.findCandidateByEmail(candidateInfo.email);
 
     if(foundCandidate){
-        if(foundCandidate.jobApplied.some(jobApp => String(jobApp.id) === String(id)))return 'already applied';
+        if(foundCandidate.jobApplied.some(jobApp => String(jobApp.id) == String(job._id))) {
+            fs.unlinkSync(`public/resumes/${candidateInfo.resume.name}`)
+        return 'already applied';
+        };
         job.candidates.push(foundCandidate._id);
         foundCandidate.jobApplied.push({title: job.title, id: job._id})
-    job.save();
-    foundCandidate.save()
-    return;
+        job.save();
+        foundCandidate.save()
+        return;
     }
 
     const candidate = await Candidate.create(candidateInfo);

@@ -166,7 +166,10 @@ exports.getJobDetailWithHRInfo =  async(req, res, next) => {
 exports.applyJob =  async(req, res, next) => {
     try{
       const {id} = req.params;
-      const job = await applyJobService(id, {...req.body, resume: `https://powerful-sands-86286.herokuapp.com/${req.file.path}`});
+      const job = await applyJobService(id, {...req.body, resume: {
+        url: `https://powerful-sands-86286.herokuapp.com/resumes/${req.file.filename}`, 
+        name: req.file.filename
+      }});
       
       res.status(200).json({
         status: 'Success',
